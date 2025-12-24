@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>🎄 Secret Santa Q&A</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#0b3d91, #0a1f44);
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 700px;
+    margin: 80px auto;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+h1 {
+    text-align: center;
+    color: #ffeb3b;
+}
+
+input, button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+}
+
+button {
+    background: #e53935;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #c62828;
+}
+
+.answer {
+    margin-top: 20px;
+    font-size: 18px;
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* ❄️ Snow */
+.snow {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 14px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🎅 Secret Santa – Q&A</h1>
+
+<input id="nameInput" placeholder="Nhập tên người hỏi">
+<button onclick="start()">Bắt đầu</button>
+
+<hr>
+
+<input id="questionInput" placeholder="Nhập câu hỏi về người tặng">
+<button onclick="ask()">Hỏi AI</button>
+
+<div id="answer" class="answer"></div>
+</div>
+
+<script>
+let count = 0;
+let currentUser = "";
+
+function start(){
+    currentUser = document.getElementById("nameInput").value;
+    count = 0;
+    document.getElementById("answer").innerText =
+        "🎄 Chào " + currentUser + "! Bạn có tối đa 3 câu hỏi.";
+}
+
+function ask(){
+    if(!currentUser){
+        alert("Nhập tên trước!");
+        return;
+    }
+    if(count >= 3){
+        document.getElementById("answer").innerText =
+            "❌ Bạn đã dùng hết 3 câu hỏi. Hãy đoán!";
+        return;
+    }
+    count++;
+    document.getElementById("answer").innerText =
+        "🤖 AI trả lời: Câu hỏi này có liên quan đến tên người tặng quà.";
+}
+
+/* ❄️ Snow effect */
+for(let i=0;i<40;i++){
+    let snow = document.createElement("div");
+    snow.className = "snow";
+    snow.innerText = "❄";
+    snow.style.left = Math.random()*100 + "vw";
+    snow.style.animationDuration = (3+Math.random()*5)+"s";
+    snow.style.fontSize = (10+Math.random()*10)+"px";
+    document.body.appendChild(snow);
+}
+</script>
+
+</body>
+</html>
